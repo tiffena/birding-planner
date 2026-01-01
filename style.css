@@ -1,0 +1,23 @@
+/* Extra tweaks beyond Tailwind */
+.group-header {
+  cursor: pointer;
+}
+
+.group-details {
+  margin-top: 5px;
+  padding-left: 15px;
+  font-size: 0.9em;
+}
+
+/* Use tabular numbers for aligned date/time columns */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ensure long location names don’t break layout */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birding Planner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+</head>
+<body class="bg-slate-100 min-h-screen p-4">
+
+<div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-4">
+  <h1 class="text-3xl font-bold text-slate-800 mb-4">🦅 Bird Spotter</h1>
+
+  <!-- Collapsible search -->
+  <details id="searchPanel" open class="mb-4">
+    <summary class="cursor-pointer font-semibold text-slate-700">Search sightings</summary>
+    <div class="mt-2">
+      <!-- Inputs -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <!-- Bird input -->
+        <div class="relative">
+          <label class="block text-sm font-semibold text-slate-600 mb-1">Bird name</label>
+          <input type="text" id="birdInput" placeholder="Type a bird..."
+                 class="w-full border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none">
+          <input type="hidden" id="birdCode">
+          <div id="suggestions" class="absolute z-50 w-full bg-white border rounded shadow-lg mt-1 hidden"></div>
+        </div>
+
+        <!-- Location input -->
+        <div>
+          <label class="block text-sm font-semibold text-slate-600 mb-1">Location</label>
+          <div class="flex gap-2">
+            <input type="text" id="locInput" placeholder="City, Zip, or Address"
+                   class="w-full border p-2 rounded outline-none">
+            <button onclick="useGPS()" class="bg-blue-100 text-blue-700 px-3 rounded hover:bg-blue-200">📍 GPS</button>
+          </div>
+          <input type="hidden" id="lat">
+          <input type="hidden" id="lng">
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div>
+          <label class="block text-sm font-semibold text-slate-600 mb-1">Radius (mi)</label>
+          <input type="number" id="distInput" value="15" min="1" max="50" class="w-full border p-2 rounded">
+        </div>
+        <div class="col-span-2">
+          <label class="block text-sm font-semibold text-slate-600 mb-1">Date filter</label>
+          <div class="flex flex-col gap-2">
+            <label class="flex items-center gap-2">
+              <input type="radio" name="dateMode" value="days" checked>
+              <span>Last</span>
+              <input type="number" id="daysBackInput" value="7" min="1" max="365" class="border p-1 w-20">
+              <span>days</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="radio" name="dateMode" value="month">
+              <span>Month:</span>
+              <input type="month" id="monthInput" class="border p-1">
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="radio" name="dateMode" value="range">
+              <span>Range:</span>
+              <input type="date" id="startDate" class="border p-1">
+              <span>to</span>
+              <input type="date" id="endDate" class="border p-1">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="findBirds()" class="w-full bg-emerald-600 text-white font-bold py-2 rounded hover:bg-emerald-700 transition">
+        Find sightings
+      </button>
+    </div>
+  </details>
+
+  <!-- Summary -->
+  <div id="summary" class="hidden mb-4">
+    <h2 id="speciesTitle" class="text-xl font-bold text-slate-800"></h2>
+    <p id="searchMeta" class="text-sm text-slate-600"></p>
+  </div>
+
+  <!-- Map -->
+  <div id="map" class="rounded border shadow-inner h-[50vh] mb-4"></div>
+
+  <!-- Grouped sightings list -->
+  <div class="overflow-y-auto border rounded bg-slate-50 max-h-[50vh]">
+    <h3 class="sticky top-0 bg-slate-200 p-3 font-bold border-b text-sm">Recent sightings</h3>
+    <ul id="resultsList" class="divide-y text-sm">
+      <li class="p-4 text-gray-500 italic">Search to see results...</li>
+    </ul>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
