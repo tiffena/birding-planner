@@ -21,7 +21,7 @@ You can enter a bird species, set your location, choose a distance and a time wi
 ## Project structure and routing 
 
 File layout:
-* Project root stores static HTML.
+* Project root stores static HTML and client-side logic.
 * Pages Functions live under `functions/` as Cloudflare Pages Function uses file-based routing.
 
 ``` 
